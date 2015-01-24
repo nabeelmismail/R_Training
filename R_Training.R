@@ -24,3 +24,31 @@ as.character(x)
 class(x)
 
 as.logical(x)
+
+# Matrix
+m <- matrix(1:6, nrow = 2, ncol = 3)
+
+ma <- 1:10
+ma
+dim(ma) <- c(2,5)
+#cbind and rbind for creating matrices 
+
+
+#Getting SQL Server data 
+install.packages("RODBC")
+library(RODBC)
+odbcChannel <- odbcConnect("Northwind")
+Sales <- sqlFetch(odbcChannel,"Orders")
+Sales [1:6,]
+library(ggplot2)
+
+plot(Sales$ShipCountry , Sales$Freight)
+
+qplot(Freight,format(OrderDate, "%Y") , data = Sales)
+
+
+qplot(Freight,format(OrderDate, "%Y") , data = Sales, color = ShipCountry)
+
+Product <- sqlFetch(odbcChannel,"Products")
+
+qplot(UnitPrice,CategoryID, data = Product[1:30,], color = ProductName)
