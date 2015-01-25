@@ -52,3 +52,22 @@ qplot(Freight,format(OrderDate, "%Y") , data = Sales, color = ShipCountry)
 Product <- sqlFetch(odbcChannel,"Products")
 
 qplot(UnitPrice,CategoryID, data = Product[1:30,], color = ProductName)
+
+adven <- odbcConnect("adventureworks")
+
+
+persondem <- sqlFetch(adven,"Sales.vPersonDemographics")
+
+qplot(Education,TotalPurchaseYTD, data = filter(persondem, TotalPurchaseYTD > 0), color = NumberCarsOwned)
+
+library(dplyr)
+
+qplot(YearlyIncome,TotalPurchaseYTD, data = filter(persondem, TotalPurchaseYTD > 0), geom="boxplot" )
+
+persondems <- filter(persondem, TotalPurchaseYTD > 0)
+
+plot(density(persondems$TotalPurchaseYTD), main="Desity Yearly Income")
+
+
+plot(density(persondems$NumberCarsOwned), main="Desity Yearly Income")
+
