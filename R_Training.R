@@ -71,5 +71,7 @@ plot(density(persondems$TotalPurchaseYTD), main="Desity Yearly Income")
 
 plot(density(persondems$NumberCarsOwned), main="Desity Yearly Income")
 
+1+1
+
 
 
