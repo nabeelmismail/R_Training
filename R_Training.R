@@ -71,7 +71,36 @@ plot(density(persondems$TotalPurchaseYTD), main="Desity Yearly Income")
 
 plot(density(persondems$NumberCarsOwned), main="Desity Yearly Income")
 
-1+2
+
+library(RODBC)
+odbcsmops <- odbcConnect("SMOPS")
+Cust_Stewarded <- sqlFetch(odbcsmops,"vw_customer_stewarded")
+
+Cust_to_Stewarded <- sqlFetch(odbcsmops,"vw_customer_to_steward")
+
+library(ggplot2)
 
 
+qplot(Sector, data = Cust_Stewarded, geom = "histogram")
 
+
+library(rpart)
+
+# Some Rpart predictions
+View(car.test.frame)
+
+z.auto <- rpart(Mileage ~ Weight, car.test.frame)
+
+
+predict(z.auto)
+
+View(kyphosis)
+fit <- rpart(Kyphosis ~ Age + Number + Start, data=kyphosis)
+
+predict(fit, type="prob")   # class probabilities (default)
+
+predict(fit, type="vector") # level numbers
+
+predict(fit, type="class")  # factor
+
+predict(fit, type="matrix") # level number, class frequencies, probabilities
